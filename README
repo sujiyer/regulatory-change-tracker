@@ -2,7 +2,7 @@
 
 [![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)](https://python.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Maintained by](https://img.shields.io/badge/Maintained%20by-sujiayer-green.svg)](https://github.com/sujiyer)
+[![Maintained by](https://img.shields.io/badge/Maintained%20by-sujiyer-green.svg)](https://github.com/sujiyer)
 
 A Python tool that monitors regulatory publications from six U.S. financial regulatory agencies and produces a structured digest of new rules, guidance documents, enforcement actions, and proposed rulemaking — formatted for financial compliance teams, systems analysts, and fintech developers.
 
@@ -78,7 +78,7 @@ ENFORCEMENT ACTIONS (1 new)
 ## Installation
 
 ```bash
-git clone https://github.com/sujiayer/regulatory-change-tracker
+git clone https://github.com/sujiyer/regulatory-change-tracker
 cd regulatory-change-tracker
 pip install -r requirements.txt
 ```
@@ -155,7 +155,7 @@ python tracker.py --topic "AI" --cross-agency
 
 ## Connection to AI Governance Framework
 
-This tool was built as a companion to the [Fintech AI Governance Framework](https://github.com/sujiayer/fintech-ai-governance-framework). One of the gaps the governance framework identifies is that AI systems in financial institutions can become non-compliant as regulations change — not because the AI is wrong, but because the rules changed around it.
+This tool was built as a companion to the [Fintech AI Governance Framework](https://github.com/sujiyer/fintech-ai-governance-framework). One of the gaps the governance framework identifies is that AI systems in financial institutions can become non-compliant as regulations change — not because the AI is wrong, but because the rules changed around it.
 
 The Regulatory Change Tracker addresses the upstream problem: making sure the humans who maintain AI systems are promptly aware of new requirements so that governance frameworks can be updated before an enforcement action occurs.
 
@@ -181,7 +181,7 @@ To report a broken feed or a missing publication, open an issue using the [Feed 
 
 **Sujatha Iyer**  
 
-[github.com/sujiayer](https://github.com/sujiayer) | [medium.com/@su9scorpio](https://medium.com/@su9scorpio) 
+[github.com/sujiyer](https://github.com/sujiyer) | [medium.com/@su9scorpio](https://medium.com/@su9scorpio) 
 ---
 
 ## Related Frameworks
