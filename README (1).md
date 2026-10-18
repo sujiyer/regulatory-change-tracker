@@ -1,0 +1,197 @@
+# Regulatory Change Tracker for Financial Services
+
+[![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)](https://python.org)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Maintained by](https://img.shields.io/badge/Maintained%20by-sujiayer-green.svg)](https://github.com/sujiayer)
+
+A Python tool that monitors regulatory publications from six U.S. financial regulatory agencies and produces a structured digest of new rules, guidance documents, enforcement actions, and proposed rulemaking — formatted for financial compliance teams, systems analysts, and fintech developers.
+
+---
+
+## The Problem This Solves
+
+U.S. financial institutions operate across a fragmented regulatory landscape. The CFPB, FDIC, Federal Reserve, FinCEN, OCC, and NCUA each publish independently — on different schedules, in different formats, with no shared notification system. For compliance teams and analysts, tracking all six agencies manually means checking six separate websites, interpreting inconsistently formatted publications, and synthesizing overlapping guidance that affects the same product lines.
+
+This tool gives any institution — including small credit unions and community banks with limited compliance staff — a single Python script that:
+
+- Fetches recent publications from all six agencies via public RSS feeds and sitemaps
+- Normalizes and tags them by category (final rule, proposed rule, guidance, enforcement action, consumer alert)
+- Identifies cross-agency activity on the same topic
+- Produces a formatted Markdown digest ready for distribution
+
+No proprietary data access. No API keys required. No paid subscriptions. Just the public information each agency already makes available, organized and delivered.
+
+---
+
+## Agencies Monitored
+
+| Agency | Focus Areas |
+|---|---|
+| **CFPB** (Consumer Financial Protection Bureau) | Consumer protection, open banking, credit reporting, debt collection |
+| **FDIC** (Federal Deposit Insurance Corporation) | Bank supervision, deposit insurance, fintech guidance |
+| **Federal Reserve** | Monetary policy, bank holding company supervision, payment systems |
+| **FinCEN** (Financial Crimes Enforcement Network) | AML, KYC, BSA compliance, beneficial ownership |
+| **OCC** (Office of the Comptroller of the Currency) | National bank charters, fintech charters, model risk guidance |
+| **NCUA** (National Credit Union Administration) | Credit union supervision, share insurance, CDFI credit unions |
+
+---
+
+## What the Output Looks Like
+
+```
+REGULATORY DIGEST — Generated 2026-10-18
+=========================================
+
+FINAL RULES (2 new)
+-------------------
+[CFPB] Personal Financial Data Rights Rule (Section 1033)
+  Published: 2026-10-15 | Effective: 2027-04-01
+  Category: Open Banking / Consumer Data Rights
+  Link: https://www.consumerfinance.gov/...
+
+[FinCEN] Beneficial Ownership Information Reporting — Small Entity Exemptions Update
+  Published: 2026-10-12 | Comment Period: N/A (Final)
+  Category: BSA / AML / KYC
+  Link: https://www.fincen.gov/...
+
+PROPOSED RULES (1 new)
+----------------------
+[OCC] Model Risk Management Guidelines for Community Banks
+  Published: 2026-10-10 | Comment Deadline: 2026-12-10
+  Category: AI Governance / Model Risk
+  Link: https://www.occ.gov/...
+
+CROSS-AGENCY ACTIVITY — AI Governance
+  Agencies active this period: OCC, CFPB, Federal Reserve
+  Summary: Three agencies have published guidance touching AI model risk,
+  explainability, and adverse action notice requirements within 60 days.
+
+ENFORCEMENT ACTIONS (1 new)
+---------------------------
+[CFPB] Action against [Institution] for ECOA/adverse action notice failures
+  Published: 2026-10-14 | Amount: $[redacted in example]
+  Link: https://www.consumerfinance.gov/...
+```
+
+---
+
+## Installation
+
+```bash
+git clone https://github.com/sujiayer/regulatory-change-tracker
+cd regulatory-change-tracker
+pip install -r requirements.txt
+```
+
+**Requirements:** Python 3.9+, `feedparser`, `requests`, `beautifulsoup4`
+
+---
+
+## Usage
+
+### Basic run (fetch last 30 days, all agencies):
+```bash
+python tracker.py
+```
+
+### Filter by agency:
+```bash
+python tracker.py --agencies cfpb,occ,fincen
+```
+
+### Filter by category:
+```bash
+python tracker.py --category "proposed rule"
+```
+
+### Date range:
+```bash
+python tracker.py --days 7
+```
+
+### Save to file:
+```bash
+python tracker.py --output digest.md
+```
+
+### Cross-agency topic scan:
+```bash
+python tracker.py --topic "AI" --cross-agency
+```
+
+---
+
+## Output Formats
+
+| Flag | Output |
+|---|---|
+| `--format markdown` (default) | Markdown digest for distribution or GitHub |
+| `--format json` | Structured JSON for downstream processing |
+| `--format csv` | Spreadsheet-compatible for compliance tracking |
+
+---
+
+## Use Cases
+
+**Compliance teams:** Weekly digest of new rules and guidance. Forward to legal, risk, and product teams with one command.
+
+**Systems analysts:** Identify when regulatory changes require updates to APIs, onboarding flows, or data handling logic. Use `--topic` flags to scope results to your domain.
+
+**Fintech developers:** Track proposed rulemaking before it becomes final. Comment deadlines are included in proposed rule entries. Early awareness means systems adjustments happen before enforcement timelines.
+
+**Credit union staff:** NCUA guidance plus cross-agency activity relevant to CDFI credit unions. Most credit union compliance teams are small; this tool reduces the time required to stay current.
+
+**Researchers and advocates:** Public regulatory data in a structured, searchable format.
+
+---
+
+## Limitations
+
+- This tool reads public RSS feeds and websites. If an agency changes its site structure or removes feeds, specific readers may break. The tool reports failures clearly so you know when data is missing rather than silently returning incomplete results.
+- This tool does not interpret or give legal opinions on regulatory content. The digest shows you what was published and categorizes it. Compliance interpretation requires qualified legal review.
+- Some agency publications have publishing delays between announcement and appearance on public feeds. For critical deadlines, always verify directly on the agency's website.
+
+---
+
+## Connection to AI Governance Framework
+
+This tool was built as a companion to the [Fintech AI Governance Framework](https://github.com/sujiayer/fintech-ai-governance-framework). One of the gaps the governance framework identifies is that AI systems in financial institutions can become non-compliant as regulations change — not because the AI is wrong, but because the rules changed around it.
+
+The Regulatory Change Tracker addresses the upstream problem: making sure the humans who maintain AI systems are promptly aware of new requirements so that governance frameworks can be updated before an enforcement action occurs.
+
+Together, the two tools form a feedback loop: the AI Governance Framework defines how an institution should govern its AI systems today; the Regulatory Change Tracker surfaces when "today" is changing.
+
+---
+
+## Contributing
+
+Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+Specific areas where contributions would be valuable:
+- Additional agency feeds (state regulators, international equivalents for U.S.-based institutions with foreign operations)
+- Topic taxonomy improvements — better keyword detection for cross-agency tagging
+- Email or Slack digest delivery
+- Historical archive and trend detection
+
+To report a broken feed or a missing publication, open an issue using the [Feed Issue template](.github/ISSUE_TEMPLATE/feed-issue.md).
+
+---
+
+## Author
+
+**Sujatha Iyer**  
+Senior Systems Analyst | Fintech & AI Governance  
+[github.com/sujiayer](https://github.com/sujiayer) | [medium.com/@su9scorpio](https://medium.com/@su9scorpio) | [linkedin.com/in/sujathaiyer](https://linkedin.com/in/sujathaiyer)
+
+---
+
+## Related Frameworks
+
+- [KYC API Framework](https://github.com/sujiayer/kyc-api-framework) — standardized API design for financial onboarding
+- [Fintech AI Governance Framework](https://github.com/sujiayer/fintech-ai-governance-framework) — governance, testing, and monitoring for AI in financial services
+- [Financial Inclusion Analyzer](https://github.com/sujiayer/financial-inclusion-analyzer) — Python tool for FDIC unbanked/underbanked data analysis
+- [Financial Literacy Framework](https://github.com/sujiayer/financial-literacy-framework) — plain-language financial education for underserved communities
+
+---
+
+*MIT License | See [LICENSE](LICENSE)*
